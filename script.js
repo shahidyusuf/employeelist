@@ -1,6 +1,7 @@
 function onFormSubmit(){
     // 2nd formulla..
     var formData=readFormData();
+    resetForm();
 // 3rd function..
 insertNewRecord(formData);
 }
@@ -31,8 +32,21 @@ cell4=newRow.insertCell(3);
 cell4.innerHTML = data.city;
 
 cell4=newRow.insertCell(4);
-cell4.innerHTML=`<a>Edit</a> 
+cell4.innerHTML=`<a onClick = "onEdit(this)">Edit</a> 
                  <a>Delete</a>`
-                 
 }
 
+function resetForm() {
+    document.getElementById("fullName").value="";
+    document.getElementById("empCode").value="";
+    document.getElementById("salary").value="";
+    document.getElementById("city").value="";
+}
+
+function onEdit(td) {
+    selectedRow = td.parentElement.parentElement;
+    document.getElementById("fullName").value = selectedRow.cells[0].innerHTML;
+    document.getElementById("empCode").value = selectedRow.cells[1].innerHTML;
+    document.getElementById("salary").value = selectedRow.cells[2].innerHTML;
+    document.getElementById("city").value = selectedRow.cells[3].innerHTML;
+}
