@@ -1,10 +1,16 @@
-function onFormSubmit(){
-    // 2nd formulla..
-    var formData=readFormData();
-    resetForm();
-// 3rd function..
+
+var selectedRow = null
+
+function onFormSubmit() {
+// if (validate()){
+    var formData = readFormData();
+    if (selectedRow == null)
 insertNewRecord(formData);
+else
+updateRecord(formData);
+resetForm();
 }
+// }
     function readFormData(){
         var formData={};
         formData["fullName"]=document.getElementById("fullName").value;
@@ -33,7 +39,7 @@ cell4.innerHTML = data.city;
 
 cell4=newRow.insertCell(4);
 cell4.innerHTML=`<a onClick = "onEdit(this)">Edit</a> 
-                 <a>Delete</a>`
+                 <a onClick = "onDelete(this)">Delete</a>`
 }
 
 function resetForm() {
@@ -41,6 +47,7 @@ function resetForm() {
     document.getElementById("empCode").value="";
     document.getElementById("salary").value="";
     document.getElementById("city").value="";
+selectedRow="null"
 }
 
 function onEdit(td) {
@@ -50,3 +57,32 @@ function onEdit(td) {
     document.getElementById("salary").value = selectedRow.cells[2].innerHTML;
     document.getElementById("city").value = selectedRow.cells[3].innerHTML;
 }
+
+function updateRecord(formData){
+    selectedRow.cells[0].innerHTML=formData.fullName;
+    selectedRow.cells[1].innerHTML=formData.empCode;
+    selectedRow.cells[2].innerHTML=formData.salary;
+    selectedRow.cells[3].innerHTML=formData.city;
+}
+
+function onDelete(td) {
+ if (confirm('Are You Sure To Delete This Record?')){
+    row=td.parentElement.parentElement;
+    document.getElementById("employeeList").deleteRow(row.rowIndex);
+    resetForm();
+}
+}
+
+// function validate() {
+//     isValid = true;
+//     if (document.getElementById("fullNmae").value == "") {
+//         isValid = false;
+//         document.getElementById("fullNameValidationError").classList.remove("hide");
+//     } else {
+//         isValid = true;
+//         if (!document.getElementById("fullNameValidationError").classList.contains("hide"))
+//         document.getElementById("fullNameValidationError").classList.add("hide");
+
+//     }
+//     return isValid;
+// }
