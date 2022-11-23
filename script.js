@@ -47,7 +47,7 @@ function resetForm() {
     document.getElementById("empCode").value="";
     document.getElementById("salary").value="";
     document.getElementById("city").value="";
-selectedRow="null"
+selectedRow=null
 }
 
 function onEdit(td) {
